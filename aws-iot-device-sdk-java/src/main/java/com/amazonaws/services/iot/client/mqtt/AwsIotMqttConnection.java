@@ -150,6 +150,8 @@ public class AwsIotMqttConnection extends AwsIotConnection {
         if(client.isClientEnableMetrics()) {
             options.setUserName(USERNAME_METRIC_STRING);
         }
+        options.setPassword(this.password);//TODO: pass this in this class
+        options.setUserName(this.userName);//TODO: pass this in this class
 
         Set<String> serverUris = getServerUris();
         if (serverUris != null && !serverUris.isEmpty()) {

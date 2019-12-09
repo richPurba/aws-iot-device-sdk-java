@@ -69,6 +69,9 @@ public abstract class AbstractAwsIotClient implements AwsIotConnectionCallback {
     private final ConcurrentMap<String, AWSIotTopic> subscriptions = new ConcurrentHashMap<>();
     private final ConcurrentMap<String, AbstractAwsIotDevice> devices = new ConcurrentHashMap<>();
     private final AwsIotConnection connection;
+    protected String username;
+    protected char[] password;
+
 
     private ScheduledExecutorService executionService;
 
@@ -81,6 +84,31 @@ public abstract class AbstractAwsIotClient implements AwsIotConnectionCallback {
 
         try {
             connection = new AwsIotTlsConnection(this, keyStore, keyPassword);
+        } catch (AWSIotException e) {
+            throw new AwsIotRuntimeException(e);
+        }
+    }
+
+    protected AbstractAwsIotClient(String clientEndpoint,
+                                   String clientId,
+                                   KeyStore keyStore,
+                                   String keyPassword,
+                                   String userName,
+                                   char[] password, boolean enableSdkMetrics,
+                                   String awsAccessKeyId,
+                                   String awsSecretAccessKey, String sessionToken,
+                                   String region){
+     this.clientEndpoint = clientEndpoint;
+     this.clientId = clientId;
+     this.username = userName;
+     this.password = password;
+        this.connectionType = AwsIotConnectionType.MQTT_OVER_WEBSOCKET;
+        this.clientEnableMetrics = enableSdkMetrics;
+
+        try {
+            connection = new AwsIotWebsocketConnection(this, awsAccessKeyId, awsSecretAccessKey, sessionToken, region );
+            connection.setUserName(this.username);
+            connection.setPassword(this.password);
         } catch (AWSIotException e) {
             throw new AwsIotRuntimeException(e);
         }

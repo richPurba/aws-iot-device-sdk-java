@@ -16,7 +16,6 @@
 package com.amazonaws.services.iot.client.core;
 
 import java.security.KeyStore;
-import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocketFactory;
 
 import com.amazonaws.services.iot.client.AWSIotException;

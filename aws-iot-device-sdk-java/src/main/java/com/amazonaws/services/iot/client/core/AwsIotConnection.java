@@ -34,6 +34,7 @@ import lombok.Setter;
  * well as offline message queuing.
  */
 public abstract class AwsIotConnection implements AwsIotConnectionCallback {
+    //TODO: pass the password and username here
 
     private static final Logger LOGGER = Logger.getLogger(AwsIotConnection.class.getName());
 
@@ -115,6 +116,13 @@ public abstract class AwsIotConnection implements AwsIotConnectionCallback {
     @Getter
     private ConcurrentLinkedQueue<AWSIotMessage> unsubscribeQueue = new ConcurrentLinkedQueue<>();
 
+    @Getter
+    @Setter
+    public String userName;
+
+    @Getter
+    @Setter
+    public char[] password;
     /**
      * Instantiates a new connection object.
      *

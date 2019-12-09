@@ -131,6 +131,37 @@ public class AWSIotMqttClient extends AbstractAwsIotClient {
         super(clientEndpoint, clientId, keyStore, keyPassword);
     }
 
+    /***
+     * Connection with MQTT client via websocket with username and password.
+     * Original AWSIoT client doesn't have the userId and Password features
+     * which is possible in MQTT Paho client
+     *
+     * Author: richard.purba@accenture.com
+     *
+     * @param clientEndpoint
+     *                the client endpoint in the form of {@code <account-specific
+     *                prefix>.iot.<aws-region>.amazonaws.com}. The account-specific
+     *                prefix can be found on the AWS IoT console or by using the
+     *                {@code describe-endpoint} command through the AWS command line
+     *                interface.
+     * @param clientId
+     *                the client ID uniquely identify a MQTT connection. Two clients
+     *                with the same client ID are not allowed to be connected
+     *                concurrently to a same endpoint.
+     * @param keyStore
+     * @param keyPassword
+     * @param userName
+     * @param password
+     */
+
+    public AWSIotMqttClient(String clientEndpoint, String clientId, KeyStore keyStore, String keyPassword, String userName, char[] password,boolean enableSdkMetrics,
+                            String awsAccessKeyId,
+                            String awsSecretAccessKey, String sessionToken,
+                            String region) {
+        super(clientEndpoint, clientId, keyStore, keyPassword, userName, password, enableSdkMetrics, awsAccessKeyId, awsSecretAccessKey, sessionToken, region);
+    }
+
+
     /**
      * Instantiates a new client using TLS 1.2 mutual authentication. Client
      * certificate and private key should be used to initialize the KeyManager
