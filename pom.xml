@@ -28,6 +28,8 @@
     </developer>
   </developers>
   <scm>
+    <developerConnection>scm:git:https://github.com/richPurba/aws-iot-device-sdk-java.git</developerConnection>
+    <connection>scm:git:https://github.com/richPurba/aws-iot-device-sdk-java.git</connection>
     <url>https://github.com/richPurba/aws-iot-device-sdk-java</url>
     <tag></tag>
   </scm>
