@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.amazonaws</groupId>
-    <artifactId>aws-iot-device-sdk-java-pom</artifactId>
-    <version>1.3.4</version>
+    <groupId>io.github.richpurba.amazonaws</groupId>
+    <artifactId>aws-iot-device-sdk-java-pom-extended</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>aws-iot-device-sdk-java</artifactId>
   <dependencies>
@@ -42,6 +42,7 @@
     </dependency>
   </dependencies>
   <build>
+    <sourceDirectory>target/generated-sources/delombok</sourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -54,6 +55,23 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok-maven-plugin</artifactId>
+        <version>1.18.6.0</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>delombok</goal>
+            </goals>
+            <configuration>
+              <addOutputDirectory>false</addOutputDirectory>
+              <sourceDirectory>src/main/java</sourceDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
         <version>3.0.0</version>
@@ -62,6 +80,23 @@
             <id>attach-sources</id>
             <goals>
               <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <configuration>
+          <sourcePath>target/generated-sources/delombok</sourcePath>
+          <excludePackageNames>*.odin.*</excludePackageNames>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
             </goals>
           </execution>
         </executions>
