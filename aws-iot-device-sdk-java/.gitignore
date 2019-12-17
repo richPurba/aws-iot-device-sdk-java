@@ -4,3 +4,12 @@
 /target/*
 *.iml
 ../*.iml
+.DS_Store
+*/.DS_Store
+../.DS_Store
+target/*
+../target/*
+*.releaseBackup
+*/*.releaseBackup
+../*.releaseBackup
+../release.properties
