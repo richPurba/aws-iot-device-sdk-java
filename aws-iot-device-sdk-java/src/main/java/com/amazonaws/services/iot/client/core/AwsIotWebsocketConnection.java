@@ -15,11 +15,13 @@
 
 package com.amazonaws.services.iot.client.core;
 
+import java.security.KeyStore;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.amazonaws.services.iot.client.AWSIotException;
 import com.amazonaws.services.iot.client.mqtt.AwsIotMqttConnection;
+import com.amazonaws.services.iot.client.util.AwsIotTlsSocketFactory;
 import com.amazonaws.services.iot.client.util.AwsIotWebSocketUrlSigner;
 
 /**
@@ -52,7 +54,10 @@ public class AwsIotWebsocketConnection extends AwsIotMqttConnection {
         //setting the region blank to ensure it's determined from the client Endpoint
         this(client, awsAccessKeyId, awsSecretAccessKey, sessionToken, "");
     }
+    public AwsIotWebsocketConnection(AbstractAwsIotClient client, KeyStore keyStore, String keyPassword) throws AWSIotException{
+        super(client,new AwsIotTlsSocketFactory(keyStore, keyPassword),"wss://"+client.getClientEndpoint()+":443");
 
+    }
     @Override
     public void updateCredentials(String awsAccessKeyId, String awsSecretAccessKey, String sessionToken) {
         urlSigner.updateCredentials(awsAccessKeyId, awsSecretAccessKey, sessionToken);

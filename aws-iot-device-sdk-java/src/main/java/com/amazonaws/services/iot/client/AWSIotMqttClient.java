@@ -131,36 +131,47 @@ public class AWSIotMqttClient extends AbstractAwsIotClient {
         super(clientEndpoint, clientId, keyStore, keyPassword);
     }
 
-    /***
-     * Connection with MQTT client via websocket with username and password.
-     * Original AWSIoT client doesn't have the userId and Password features
-     * which is possible in MQTT Paho client
-     *
-     * Author: richard.purba@accenture.com
+    /**
+     * Instantiates a new client using TLS 1.2 mutual authentication. Client
+     * certificate and private key are passed in through the {@link KeyStore}
+     * argument. The key password protecting the private key in the
+     * {@link KeyStore} is also required.
      *
      * @param clientEndpoint
-     *                the client endpoint in the form of {@code <account-specific
-     *                prefix>.iot.<aws-region>.amazonaws.com}. The account-specific
-     *                prefix can be found on the AWS IoT console or by using the
-     *                {@code describe-endpoint} command through the AWS command line
-     *                interface.
+     *            the client endpoint in the form of {@code <account-specific
+     *            prefix>.iot.<aws-region>.amazonaws.com}. The account-specific
+     *            prefix can be found on the AWS IoT console or by using the
+     *            {@code describe-endpoint} command through the AWS command line
+     *            interface.
      * @param clientId
-     *                the client ID uniquely identify a MQTT connection. Two clients
-     *                with the same client ID are not allowed to be connected
-     *                concurrently to a same endpoint.
+     *            the client ID uniquely identify a MQTT connection. Two clients
+     *            with the same client ID are not allowed to be connected
+     *            concurrently to a same endpoint.
      * @param keyStore
+     *            the key store containing the client X.509 certificate and
+     *            private key. The {@link KeyStore} object can be constructed
+     *            using X.509 certificate file and private key file created on
+     *            the AWS IoT console. For more details, please refer to the
+     *            README file of this SDK.
      * @param keyPassword
+     *            the key password protecting the private key in the
+     *            {@code keyStore} argument.
+     *
+     * @param enableSdkMetrics
+     *              metrics to
      * @param userName
+     *          username or thing-id in the call. This is similar to option -u
+     *          in mosquitto client
      * @param password
+     *          password is the password to connect in mqtt protocol. This is
+     *          similar option to -P in mosquitto client.
      */
-
-    public AWSIotMqttClient(String clientEndpoint, String clientId, KeyStore keyStore, String keyPassword, String userName, char[] password,boolean enableSdkMetrics,
-                            String awsAccessKeyId,
-                            String awsSecretAccessKey, String sessionToken,
-                            String region) {
-        super(clientEndpoint, clientId, keyStore, keyPassword, userName, password, enableSdkMetrics, awsAccessKeyId, awsSecretAccessKey, sessionToken, region);
+    public AWSIotMqttClient(String clientEndpoint, String clientId, KeyStore keyStore, String keyPassword,
+                         boolean enableSdkMetrics,
+                         String userName,
+                         String password){
+        super(clientEndpoint,clientId, keyStore, keyPassword, enableSdkMetrics, userName, password);
     }
-
 
     /**
      * Instantiates a new client using TLS 1.2 mutual authentication. Client

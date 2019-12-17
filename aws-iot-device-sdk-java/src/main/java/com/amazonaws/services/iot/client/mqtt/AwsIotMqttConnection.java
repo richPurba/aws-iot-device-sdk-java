@@ -51,7 +51,7 @@ public class AwsIotMqttConnection extends AwsIotConnection {
     private AwsIotMqttMessageListener messageListener;
     private AwsIotMqttClientListener clientListener;
 
-    public AwsIotMqttConnection(AbstractAwsIotClient client, SocketFactory socketFactory, String serverUri)
+    public  AwsIotMqttConnection(AbstractAwsIotClient client, SocketFactory socketFactory, String serverUri)
             throws AWSIotException {
         super(client);
 
@@ -150,8 +150,12 @@ public class AwsIotMqttConnection extends AwsIotConnection {
         if(client.isClientEnableMetrics()) {
             options.setUserName(USERNAME_METRIC_STRING);
         }
-        options.setPassword(this.password);//TODO: pass this in this class
-        options.setUserName(this.userName);//TODO: pass this in this class
+        char[] passwordToBeInserted = new char[client.getPassword().length()];
+        for (int i = 0; i < passwordToBeInserted.length; i++) {
+            passwordToBeInserted[i] = client.getPassword().charAt(i);
+        }
+        options.setPassword(passwordToBeInserted);//TODO: pass this in this class
+        options.setUserName(client.getUsername());//TODO: pass this in this class
 
         Set<String> serverUris = getServerUris();
         if (serverUris != null && !serverUris.isEmpty()) {

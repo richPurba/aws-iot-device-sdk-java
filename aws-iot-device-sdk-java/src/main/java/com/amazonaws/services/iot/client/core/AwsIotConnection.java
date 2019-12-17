@@ -122,7 +122,7 @@ public abstract class AwsIotConnection implements AwsIotConnectionCallback {
 
     @Getter
     @Setter
-    public char[] password;
+    public String password;
     /**
      * Instantiates a new connection object.
      *
