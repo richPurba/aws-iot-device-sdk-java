@@ -40,7 +40,7 @@
   <distributionManagement>
     <repository>
       <id>aws-iot-device-sdk-java-pom-extended</id>
-      <url>file:///Users/richard.purba/Documents/Assignments/KPN/aws-iot-client-forked/aws-iot-device-sdk-java</url>
+      <url>http://padm170-adm.wxs.nl:8082/nexus/content/repositories/releases/</url>
     </repository>
   </distributionManagement>
   <build>
